@@ -7,9 +7,9 @@ Currently, only stats can be modded via this method, due to lack of knowledge re
 ## Required Software
 
 To mod SD Gundam Battle Alliance, the following software is required:
-- [retoc](https://github.com/trumank/retoc) - a command prompt program for extracting and repackaging Unreal uAssets for games using UTOC/UCAS/PAK. (Compiled version here.)
+- [retoc](https://github.com/trumank/retoc) - a command prompt program for extracting and repackaging Unreal uAssets for games using UTOC/UCAS/PAK. [(Compiled version here.)](./Pre-Edited%20Assets/retoc-03-2025.zip)
 - [uAssetGUI](https://github.com/atenfyr/UAssetGUI) - GUI for editing uAsset files.
-- Visual Studio Code (Optional, for JSON asset edits.)
+- Visual Studio Code - Optional, for JSON asset edits.
 
 ## Key Commands
 
@@ -51,7 +51,7 @@ To find stats, check out the [Stat Locations page](./Documentation/sdgba_stats.m
 
 ## Mod Warning
 
-Only **ONE** mod can change values at a time. If multiple mods attempt to mod the same file (for example, `GOP_UnitMS.uasset`), major issues may occur.
+Only **ONE** mod can change values in a uAsset at a time. If multiple mods attempt to mod the same file (for example, `GOP_UnitMS.uasset`), major issues may occur.
 
 To mitigate this, the Pre-Edited Assets folder has several assets that have been modded with changes that users may want. You can tune them as necessary for your own mods.
 
