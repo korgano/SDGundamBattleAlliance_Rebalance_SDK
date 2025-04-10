@@ -23,15 +23,18 @@ Contains template for the randomly generated effects parts, as well as parts gen
 `SelectType[1-3]` controls how the effect for a part is chosen. Options are:
 - `EPartsSelectType::NONE`
 - `EPartsSelectType::FIX`
+- `EPartsSelectType::FIX_AND_RANDOM_PARAM`
 - `EPartsSelectType::RANDOM`
 
-When using `EPartsSelectType::FIX`, the corresponding `SelectId[1-3]` field **MUST** contain a `PARTSEFFECT_` value.
+When using `EPartsSelectType::FIX`/`EPartsSelectType::FIX_AND_RANDOM_PARAM`, the corresponding `SelectId[1-3]` field **MUST** contain a `PARTSEFFECT_` value.
 
 When using `EPartsSelectType::RANDOM`, the `SelectId[1-3]` field **MUST** contain one of the following values:
 - `GroupId` value (see below) for `SelectId1`
 - `ALL` for `SelectId2-3`
 
 When using `EPartsSelectType::NONE`, the corresponding `SelectId[1-3]` field **MUST** contain an `ALL` value.
+
+Using `EPartsSelectType::FIX_AND_RANDOM_PARAM` does **not** require a value to be set in the corresponding `Param#` field.
 
 ## GOP_PartsEffect:
 Controls drop rates for effects when randomly generating effect parts (uncertain about this). Also tracks which ones are debuffs.
@@ -50,6 +53,94 @@ Known `GroupId` values:
 - DEBUFF_ONLY
 - UDM_GROUP
 - UNIQUE_GROUP
+
+All buffs effects:
+
+### PartsEffect and Param style:
+Here is a chart showing various `PARTSEFFECT` types and their preferred `Param#` format:
+| PARTSEFFECT                                  | Values         | PARAM   |
+|----------------------------------------------|----------------|---------|
+| PARTSEFFECT_BASE_HP_UP(_#)                    | Null, 1-4,9    | ###     |
+| PARTSEFFECT_BASE_FIGHT_UP(_#)                 | Null, 1-5,9    |         |
+| PARTSEFFECT_BASE_SHOOT_UP(_#)                 | Null, 1-5,9    | ###     |
+| PARTSEFFECT_BASE_BALANCER_UP(_#)              | Null, 1-4,9    |         |
+| PARTSEFFECT_ATK_PHYS_UP(_#)                   | Null, 1-4,9    |         |
+| PARTSEFFECT_ATK_PHYS_GR_UP(_#)                | Null, 1-4,9    |         |
+| PARTSEFFECT_ATK_PHYS_SH_UP(_#)                | Null, 1-4,9    |         |
+| PARTSEFFECT_ATK_BEAM_UP(_#)                   | Null, 1-4,9    |         |
+| PARTSEFFECT_ATK_BEAM_GR_UP(_#)                | Null, 1-4,9    |         |
+| PARTSEFFECT_ATK_BEAM_SH_UP(_#)                | Null, 1-4,9    | 0.##    |
+| PARTSEFFECT_ATK_WEAPON_UP(_#)                 | Null, 1-4,9    | 0.##    |
+| PARTSEFFECT_ATK_SHOOT_UP(_#)                  | Null, 1-4,9    | 0.##    |
+| PARTSEFFECT_ATK_UNIQUE_UP(_#)                 | Null, 1-4,9    |         |
+| PARTSEFFECT_ATK_UNIQUE1_UP(_#)                | Null, 1-4,9    |         |
+| PARTSEFFECT_ATK_UNIQUE2_UP(_#)                | Null, 1-4,9    |         |
+| PARTSEFFECT_RELOAD_WEAPON_UP(_#)              | Null, 1-4,9    | 0.##    |
+| PARTSEFFECT_RELOAD_SHOOT_UP(_#)               | Null, 1-4,9    |         |
+| PARTSEFFECT_RELOAD_UNIQUE_UP(_#)              | Null, 1-4,9    |         |
+| PARTSEFFECT_RELOAD_UNIQUE1_UP(_#)             | Null, 1-4,9    |         |
+| PARTSEFFECT_RELOAD_UNIQUE2_UP(_#)             | Null, 1-3,9    |         |
+| PARTSEFFECT_BULLET_WEAPON_UP(_#)              | Null, 1-4,9    | 0.##    |
+| PARTSEFFECT_BULLET_SHOOT_UP(_#)               | Null, 1-4,9    |         |
+| PARTSEFFECT_BULLET_UNIQUE_UP(_#)              | Null, 1-4,9    |         |
+| PARTSEFFECT_BULLET_UNIQUE1_UP(_#)             | Null, 1-4,9    |         |
+| PARTSEFFECT_BULLET_UNIQUE2_UP(_#)             | Null, 1-4,9    |         |
+| PARTSEFFECT_REDUCE_PHYS_UP(_#)                | Null, 1-4,9    |         |
+| PARTSEFFECT_REDUCE_PHYS_GR_UP(_#)             | Null, 1-4,9    |         |
+| PARTSEFFECT_REDUCE_PHYS_SH_UP(_#)             | Null, 1-3,9    |         |
+| PARTSEFFECT_REDUCE_BEAM_UP(_#)                | Null, 1-4,9    |         |
+| PARTSEFFECT_REDUCE_BEAM_GR_UP(_#)             | Null, 1-4,9    |         |
+| PARTSEFFECT_REDUCE_BEAM_SH_UP(_#)             | Null, 1-4,9    |         |
+| PARTSEFFECT_REDUCE_GR_UP(_#)                  | Null, 1-4,9    | #.#     |
+| PARTSEFFECT_REDUCE_SH_UP(_#)                  | Null, 1-4,9    | #.#     |
+| PARTSEFFECT_REDUCE_BACK_UP(_#)                | Null, 1-3,9    |         |
+| PARTSEFFECT_GUARD_SPEC_UP(_#)                 | Null, 1-4,9    |         |
+| PARTSEFFECT_GUARD_RANGE_UP(_#)                | Null, 4,9      | #       |
+| PARTSEFFECT_GUARD_GUAGE_UP(_#)                | Null, 1-4,9    | ##      |
+| PARTSEFFECT_GUARD_RESTORE_UP(_#)              | Null, 1-3,9    | #       |
+| PARTSEFFECT_GUARD_JUSTGUARD_TIME_UP(_#)       | Null, 4, 9     |         |
+| PARTSEFFECT_GUARD_JUSTGUARD_SP_ADD_UP(_#)       | Null, 1-4,9    | #       |
+| PARTSEFFECT_BOOST_STEP_UP_4                  | None           |         |
+| PARTSEFFECT_BOOST_VALUE_UP(_#)               | Null, 1-4,9    | ##      |
+| PARTSEFFECT_BOOST_STEP_INVINCIBLE_TIME_UP(_#)  | Null, 4, 9     | 0.##    |
+| PARTSEFFECT_REPAIR_VALUE_UP(_#)              | Null, 1-4,9    | ##      |
+| PARTSEFFECT_REPAIR_COUNT_UP(_#)              | Null, 1-2,9    |         |
+| PARTSEFFECT_REPAIR_REPAIR_DOWN(_#)           | Null, 1-4,9    |         |
+| PARTSEFFECT_REPAIR_RESTORE_DOWN(_#)          | Null, 1-4,9    |         |
+| PARTSEFFECT_REPAIR_RESTORE_SELF_DOWN(_#)     | Null, 1-4,9    |         |
+| PARTSEFFECT_REPAIR_RESTORE_FRIEND_DOWN(_#)   | Null, 1-4,9    |         |
+| PARTSEFFECT_REPAIR_HEAL_ALL(_#)              | Null, 1-4,9    | ##      |
+| PARTSEFFECT_OTHER_DROP_CAPITAL_UP(_#)         | Null, 1-4,9    | #####   |
+| PARTSEFFECT_BOOSTCOST_ALLMOVE_DOWN(_#)        | Null, 1-4,9    |         |
+| PARTSEFFECT_BOOSTCOST_DASH_DOWN(_#)           | Null, 1-3,9    | ##      |
+| PARTSEFFECT_BOOSTCOST_STEP_DOWN(_#)           | Null, 1-3,9    |         |
+| PARTSEFFECT_BOOSTCOST_JUMP_DOWN(_#)           | Null, 1-3,9    |         |
+| PARTSEFFECT_BOOSTCOST_GR_ALL_DOWN(_#)         | Null, 1-4,9    | ##      |
+| PARTSEFFECT_BOOSTCOST_GR_NORMAL_DOWN(_#)      | Null, 1-4,9    |         |
+| PARTSEFFECT_BOOSTCOST_GR_SPECIAL_DOWN(_#)     | Null, 1-3,9    |         |
+| PARTSEFFECT_BOOSTCOST_GR_SPIN_DOWN(_#)        | Null, 1-3,9    |         |
+| PARTSEFFECT_BOOSTCOST_GR_LAUNCHER_DOWN(_#)      | Null, 1-3,9    |         |
+| PARTSEFFECT_BOOSTCOST_GR_SMASH_DOWN(_#)         | Null, 1-3,9    |         |
+| PARTSEFFECT_BALANCEDMG_ALL_UP(_#)            | Null, 1-4,9    | ##      |
+| PARTSEFFECT_BALANCEDMG_BASIC_UP(_#)           | Null, 1-3,9    |         |
+| PARTSEFFECT_BALANCEDMG_UNIQUE_UP(_#)           | Null, 1-4,9    |         |
+| PARTSEFFECT_BALANCEDMG_UNIQUE_1_UP(_#)         | Null, 1-3,9    |         |
+| PARTSEFFECT_BALANCEDMG_UNIQUE_2_UP(_#)         | Null, 1-3,9    |         |
+| PARTSEFFECT_TENSIONDMG_ALL_UP(_#)             | Null, 1-4,9    |         |
+| PARTSEFFECT_TENSIONDMG_BASIC_UP(_#)            | Null, 1-3,9    |         |
+| PARTSEFFECT_TENSIONDMG_UNIQUE_UP(_#)            | Null, 1-3,9    |         |
+| PARTSEFFECT_TENSIONDMG_UNIQUE_1_UP(_#)          | Null, 1-3,9    |         |
+| PARTSEFFECT_TENSIONDMG_UNIQUE_2_UP(_#)          | Null, 1-3,9    |         |
+| PARTSEFFECT_BARRIERDMG_ALL_UP(_#)             | Null, 1-4,9    | ##      |
+| PARTSEFFECT_BARRIERDMG_BASIC_UP(_#)            | Null, 1-3,9    |         |
+| PARTSEFFECT_BARRIERDMG_UNIQUE_UP(_#)            | Null, 1-3,9    |         |
+| PARTSEFFECT_BARRIERDMG_UNIQUE_1_UP(_#)          | Null, 1-3,9    |         |
+| PARTSEFFECT_BARRIERDMG_UNIQUE_2_UP(_#)          | Null, 1-3,9    |         |
+| PARTSEFFECT_LOCATIONDMG_BACK_UP(_#)           | Null, 1-4,9    | 0.##    |
+| PARTSEFFECT_LOCATIONDMG_AIR_UP(_#)            | Null, 1-4,9    |         |
+| PARTSEFFECT_UNIQUE_SUPERARMOR(_#)             | Null, 9       |         |
+| PARTSEFFECT_UNIQUE_AUTO_REPAIR(_#)            | Null, 9       | 1       |
+| PARTSEFFECT_UNIQUE_AUTO_GUARD(_#)             | Null, 9       | 1       |
 
 ## GOP_Missions:
 Controls mission timer, what enemies are displayed on the selection screen.
